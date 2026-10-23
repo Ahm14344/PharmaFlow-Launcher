@@ -1,0 +1,21 @@
+{
+  "name": "PharmaFlow",
+  "short_name": "PharmaFlow",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#052B56",
+  "theme_color": "#052B56",
+  "icons": [
+    {
+      "src": "./pharmaflow-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./pharmaflow-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
