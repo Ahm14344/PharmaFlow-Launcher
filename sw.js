@@ -1,5 +1,5 @@
 /* PharmaFlow launcher: instant start and offline shell. The portal itself always loads live. */
-const CACHE='pf-launcher-v6.5.16';
+const CACHE='pf-launcher-v6.5.17';
 const SHELL=['./','./index.html','./manifest.webmanifest','./pharmaflow-icon-180.png','./pharmaflow-icon-192.png','./pharmaflow-icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x)))).then(()=>self.clients.claim()));});
