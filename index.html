@@ -23,10 +23,28 @@ footer .copyright{display:flex;align-items:center;justify-content:center;gap:10p
 @media(max-height:720px){main{margin-top:12px;margin-bottom:110px;padding-top:20px;padding-bottom:24px}.logo{width:110px}.subtitle{margin-bottom:17px}}
 @media(max-height:520px){body{justify-content:flex-start}main{margin-bottom:25px}footer{position:static;margin-top:auto}}
 @media(prefers-reduced-motion:reduce){.open{transition:none}}
+.branch{margin:14px auto 0;max-width:390px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:clamp(14px,3.2vw,17px);color:#d7eaf9}
+.branch input{width:120px;padding:9px 10px;border-radius:14px;border:1px solid rgba(161,246,255,.7);background:rgba(0,30,70,.35);color:#fff;font:inherit;text-align:center}
+.branch button{border:0;background:none;color:#47e7f1;font:inherit;font-weight:700;cursor:pointer;padding:8px 4px;text-decoration:underline}
 </style></head>
-<body><main><img class="logo" src="./pharmaflow-icon-512.png" alt="PharmaFlow PF"><h1>PharmaFlow</h1><p class="subtitle">بوابة الصيدليات</p><a class="open" href="https://script.google.com/a/al-dawaa.com.sa/macros/s/AKfycbyKt6LKHXfzdvJyXFZ7en4c9NxR4-HowD5ijzvpF62GEu6s5wSSFHGrPdOnLQfBej3FSQ/exec">فتح التطبيق &#8250;</a></main>
+<body><main><img class="logo" src="./pharmaflow-icon-512.png" alt="PharmaFlow PF"><h1>PharmaFlow</h1><p class="subtitle">بوابة الصيدليات</p><a class="open" href="https://script.google.com/a/al-dawaa.com.sa/macros/s/AKfycbyKt6LKHXfzdvJyXFZ7en4c9NxR4-HowD5ijzvpF62GEu6s5wSSFHGrPdOnLQfBej3FSQ/exec" id="open-app">فتح التطبيق &#8250;</a><div class="branch" id="branch-box"></div></main>
 <footer lang="en" dir="ltr"><div class="copyright"><span>© <span class="year" id="year"></span> PharmaFlow. All Rights Reserved.</span><span class="version" id="version" hidden></span></div><div class="credit">Designed &amp; Developed by Dr. Ahmed Salah</div></footer>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 fetch('./version.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('unavailable');return r.json()}).then(d=>{if(typeof d.version==='string'&&/^\d+\.\d+\.\d+$/.test(d.version)){const el=document.getElementById('version');el.textContent='v'+d.version;el.hidden=false}}).catch(()=>{});
+
+/* The branch is remembered here (first-party, persistent) and passed to the portal as ?b=. */
+(function(){
+  var KEY='pf_launcher_branch_v1',a=document.getElementById('open-app'),box=document.getElementById('branch-box'),base=a.getAttribute('href');
+  function get(){try{return (localStorage.getItem(KEY)||'').replace(/[^0-9]/g,'');}catch(e){return '';}}
+  function set(v){try{v?localStorage.setItem(KEY,v):localStorage.removeItem(KEY);}catch(e){}}
+  function draw(edit){
+    var b=get();a.href=b?base+'?b='+encodeURIComponent(b):base;
+    if(b&&!edit){box.innerHTML='<span>فرعي: <b>'+b+'</b></span><button type="button">تغيير</button>';box.querySelector('button').onclick=function(){draw(true);};return;}
+    box.innerHTML='<input inputmode="numeric" maxlength="6" placeholder="رقم الفرع" value="'+b+'" aria-label="رقم الفرع"><button type="button">حفظ</button>';
+    var i=box.querySelector('input');box.querySelector('button').onclick=function(){var v=i.value.replace(/[^0-9]/g,'');if(/^\d{3,6}$/.test(v)){set(v);draw(false);}else i.focus();};
+    i.onkeydown=function(e){if(e.key==='Enter')box.querySelector('button').click();};
+  }
+  draw(false);
+})();
 </script></body></html>
