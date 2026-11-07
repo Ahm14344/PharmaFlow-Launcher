@@ -12,10 +12,9 @@ body{margin:0;min-height:100dvh;padding:30px 18px;background:#f2f6fb;color:#0b27
 main{width:min(100%,430px);padding:30px 24px;background:white;border:1px solid #d5e3f3;border-radius:26px;box-shadow:0 12px 40px #0d376415;text-align:center}
 .logo{width:96px;height:96px;border-radius:23%;display:block;margin:0 auto 14px}
 h1{font-size:26px;margin:0 0 8px}p{font-size:15px;line-height:1.8;color:#3e526f;margin:0 0 22px}
-a.install{display:block;padding:16px 18px;border-radius:16px;background:#0765bd;color:#fff;font-size:18px;font-weight:700;text-decoration:none}
 ol{text-align:right;line-height:2.15;padding-inline-start:25px;margin-top:24px;font-size:15px;color:#284265}
 small{display:block;color:#526987;line-height:1.7}
-button{border:0;padding:9px 15px;background:transparent;color:#0765bd;font-size:14px;text-decoration:underline;cursor:pointer}
+button{border:0;cursor:pointer}button.install{display:block;width:100%;padding:16px 18px;border-radius:16px;background:#0765bd;color:#fff;font-size:18px;font-weight:700;line-height:1.4;text-decoration:none;-webkit-appearance:none;appearance:none}
 #info{font-size:13px;min-height:20px;color:#1f4d73}
 </style>
 </head>
@@ -23,19 +22,18 @@ button{border:0;padding:9px 15px;background:transparent;color:#0765bd;font-size:
 <img class="logo" src="../pharmaflow-icon-180.png" alt="PharmaFlow">
 <h1>PharmaFlow</h1>
 <p>تثبيت أيقونة PharmaFlow بملء الشاشة على iPhone، بدون تغيير إعدادات البرنامج.</p>
-<a class="install" href="./PharmaFlow_iPhone_FullScreen_V5.mobileconfig" type="application/x-apple-aspen-config">تنزيل بروفايل PharmaFlow</a>
+<button id="download-profile" class="install" type="button">تنزيل بروفايل للآيفون</button>
 <ol>
 <li>افتح هذه الصفحة من تطبيق Safari.</li>
-<li>اضغط زر تنزيل البروفايل، ثم «سماح» إذا ظهر الطلب.</li>
+<li>اضغط «تنزيل بروفايل للآيفون» ثم احفظ الملف إذا ظهر خيار الحفظ.</li>
 <li>افتح الإعدادات ← تم تنزيل ملف تعريف ← تثبيت.</li>
 <li>افتح PharmaFlow من أيقونة الشاشة الرئيسية.</li>
 </ol>
-<small>لو اتفتح الكود بدل التثبيت، جرّب زر التنزيل البديل.</small>
-<button id="alternative" type="button">تنزيل بديل للآيفون</button>
+<small>تم اعتماد طريقة التنزيل التي نجحت على iPhone 13.</small>
 <div id="info" role="status"></div>
 </main>
 <script>
-document.querySelector('#alternative').addEventListener('click',async function(){
+document.querySelector('#download-profile').addEventListener('click',async function(){
 const status=document.querySelector('#info');
 try{
 status.textContent='جاري تجهيز التنزيل…';
@@ -48,6 +46,6 @@ const a=document.createElement('a');a.href=url;a.download='PharmaFlow_iPhone_Ful
 document.body.appendChild(a);a.click();a.remove();
 status.textContent='بعد التنزيل افتح الإعدادات ثم ملف التعريف.';
 setTimeout(()=>URL.revokeObjectURL(url),60000);
-}catch(e){status.textContent='افتح الرابط الأساسي من Safari أو استخدم التنزيل من الملفات.';}
+}catch(e){status.textContent='لو لم يكتمل التنزيل، افتح الصفحة في Safari وحاول مرة أخرى.';}
 });
 </script></body></html>
